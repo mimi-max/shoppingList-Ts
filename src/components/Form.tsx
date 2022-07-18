@@ -5,7 +5,9 @@ import Product from './Product';
 
 function Form() {
   const { productValue, changeProductValue } = useProductValue();
-  const { products, addProduct, updateProduct } = useProducts();
+  const {
+    products, addProduct, updateProduct, deleteProduct,
+  } = useProducts();
   //
   return (
     <>
@@ -32,7 +34,12 @@ function Form() {
         { Object.values(products).map((product) => (
           <div key={product.id}>
             {' '}
-            <Product product={product.value} updateProduct={updateProduct} id={product.id} />
+            <Product
+              product={product.value}
+              updateProduct={updateProduct}
+              id={product.id}
+              deleteProduct={deleteProduct}
+            />
           </div>
         ))}
       </div>
