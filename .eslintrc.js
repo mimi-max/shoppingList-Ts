@@ -20,5 +20,11 @@ module.exports = {
     '@typescript-eslint',
   ],
   rules: {
+    'no-unused-vars': 'off',
+    'import/no-unresolved': 'off',
+    'import/extensions': 'off',
+    'react/react-in-jsx-scope': 'off',
+    'react/jsx-filename-extension': 'off',
+
   },
 };
