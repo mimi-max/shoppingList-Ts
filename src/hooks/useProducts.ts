@@ -16,6 +16,8 @@ interface IUseProducts{
   updateProduct:(id: string, value: string)=>void
   deleteProduct:(id: string)=> void
   isCheck:(id: string, isDone:boolean)=> void
+  increaseQuantity:(id: string, quantity: number)=> void
+  decreaseQuantity:(id: string, quantity: number)=> void
 }
 //
 function useProducts() {
@@ -52,12 +54,23 @@ function useProducts() {
   function isCheck(id:string, isDone:boolean):void {
     const newProducts = { ...products };
     newProducts[id].isDone = !newProducts[id].isDone;
-    console.log(newProducts);
     setProducts(newProducts);
   }
   //
+  function increaseQuantity(id:string, quantity:number) {
+    const newProducts = { ...products };
+    newProducts[id].quantity += newProducts[id].quantity + 1;
+    setProducts(newProducts);
+  }
+  function decreaseQuantity(id:string, quantity:number) {
+    const newProducts = { ...products };
+    if (newProducts[id].quantity >= 1) {
+      newProducts[id].quantity -= newProducts[id].quantity - 1;
+      setProducts(newProducts);
+    }
+  }
   return {
-    products, addProduct, updateProduct, deleteProduct, isCheck,
+    products, addProduct, updateProduct, deleteProduct, isCheck, increaseQuantity, decreaseQuantity,
   };
 }
 export default useProducts;

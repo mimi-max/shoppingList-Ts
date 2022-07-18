@@ -8,9 +8,13 @@ interface IProductProps{
   deleteProduct:(id: string) => void
   isCheck: (id: string, isDone: boolean) => void
   isDone:boolean
+  quantity:number
+  increaseQuantity: (id: string, quantity: number) => void
+  decreaseQuantity: (id: string, quantity: number) => void
 }
 function Product({
   product, updateProduct, id, deleteProduct, isCheck, isDone,
+  quantity, increaseQuantity, decreaseQuantity,
 }:IProductProps) {
   const [istoggle, setToggle] = useState <boolean>(false);
   const { productValueUpdate, changeProductValueUpdate } = useProductValueUpdate(product);
@@ -41,6 +45,16 @@ function Product({
         </button>
         )}
       </form>
+      )}
+      {!istoggle && (
+      <input
+        type="number"
+        min={quantity}
+        onChange={() => {
+          increaseQuantity(id, quantity);
+          decreaseQuantity(id, quantity);
+        }}
+      />
       )}
       {!istoggle && <button type="button" onClick={() => { toogle(); }}>Update</button>}
 
