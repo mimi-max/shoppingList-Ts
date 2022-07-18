@@ -5,6 +5,8 @@ interface IProduct{
   [id:string]:{
     value:string,
     id:string,
+    isDone:boolean,
+    quantity:number
   }
 }
 //
@@ -13,6 +15,7 @@ interface IUseProducts{
   addProduct: (productValue: string) => void,
   updateProduct:(id: string, value: string)=>void
   deleteProduct:(id: string)=> void
+  isCheck:(id: string, isDone:boolean)=> void
 }
 //
 function useProducts() {
@@ -26,6 +29,8 @@ function useProducts() {
         [id]: {
           value: productValue,
           id,
+          isDone: false,
+          quantity: 1,
         },
       };
       setProducts(newProducts);
@@ -44,9 +49,15 @@ function useProducts() {
     delete newProducts[id];
     setProducts(newProducts);
   }
+  function isCheck(id:string, isDone:boolean):void {
+    const newProducts = { ...products };
+    newProducts[id].isDone = !newProducts[id].isDone;
+    console.log(newProducts);
+    setProducts(newProducts);
+  }
   //
   return {
-    products, addProduct, updateProduct, deleteProduct,
+    products, addProduct, updateProduct, deleteProduct, isCheck,
   };
 }
 export default useProducts;
