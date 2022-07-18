@@ -25,6 +25,7 @@ module.exports = {
     'import/extensions': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/jsx-filename-extension': 'off',
+    'react/jsx-no-bind': 'off',
 
   },
 };
