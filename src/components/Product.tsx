@@ -6,9 +6,11 @@ interface IProductProps{
   updateProduct: (id: string, value: string) => void
   id:string,
   deleteProduct:(id: string) => void
+  isCheck: (id: string, isDone: boolean) => void
+  isDone:boolean
 }
 function Product({
-  product, updateProduct, id, deleteProduct,
+  product, updateProduct, id, deleteProduct, isCheck, isDone,
 }:IProductProps) {
   const [istoggle, setToggle] = useState <boolean>(false);
   const { productValueUpdate, changeProductValueUpdate } = useProductValueUpdate(product);
@@ -16,9 +18,11 @@ function Product({
   function toogle() {
     setToggle(!istoggle);
   }
+  const textCheck = isDone ? <span style={{ textDecorationLine: 'line-through' }}>{product}</span> : <span>{product}</span>;
   return (
     <>
-      {!istoggle && <span>{product}</span> }
+      <input type="checkbox" id={id} onChange={() => { isCheck(id, isDone); }} />
+      {!istoggle && textCheck}
       {istoggle && (
       <form
         action=""
