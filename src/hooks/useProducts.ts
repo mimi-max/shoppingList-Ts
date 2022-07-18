@@ -12,6 +12,7 @@ interface IUseProducts{
   products:IProduct,
   addProduct: (productValue: string) => void,
   updateProduct:(id: string, value: string)=>void
+  deleteProduct:(id: string)=> void
 }
 //
 function useProducts() {
@@ -37,6 +38,15 @@ function useProducts() {
     newProducts[id].value = value;
     setProducts(newProducts);
   }
-  return { products, addProduct, updateProduct };
+  //
+  function deleteProduct(id:string):void {
+    const newProducts = { ...products };
+    delete newProducts[id];
+    setProducts(newProducts);
+  }
+  //
+  return {
+    products, addProduct, updateProduct, deleteProduct,
+  };
 }
 export default useProducts;

@@ -4,9 +4,12 @@ import useProductValueUpdate from '../hooks/useProductValueUpadte';
 interface IProductProps{
   product:string
   updateProduct: (id: string, value: string) => void
-  id:string
+  id:string,
+  deleteProduct:(id: string) => void
 }
-function Product({ product, updateProduct, id }:IProductProps) {
+function Product({
+  product, updateProduct, id, deleteProduct,
+}:IProductProps) {
   const [istoggle, setToggle] = useState <boolean>(false);
   const { productValueUpdate, changeProductValueUpdate } = useProductValueUpdate(product);
   //
@@ -36,7 +39,8 @@ function Product({ product, updateProduct, id }:IProductProps) {
       </form>
       )}
       {!istoggle && <button type="button" onClick={() => { toogle(); }}>Update</button>}
-      <button type="button">Delete</button>
+
+      { !istoggle && <button type="button" onClick={() => { deleteProduct(id); }}>Delete</button>}
     </>
   );
 }
