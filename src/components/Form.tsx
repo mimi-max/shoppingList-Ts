@@ -5,7 +5,7 @@ import Product from './Product';
 
 function Form() {
   const { productValue, changeProductValue } = useProductValue();
-  const { products, addProduct } = useProducts();
+  const { products, addProduct, updateProduct } = useProducts();
   //
   return (
     <>
@@ -17,16 +17,26 @@ function Form() {
           changeProductValue('');
         }}
       >
-        <input type="text" value={productValue} id="" onChange={(e: React.ChangeEvent<HTMLInputElement>) => { changeProductValue(e.target.value); }} />
+        <input
+          type="text"
+          value={productValue}
+          required
+          id=""
+          onChange={
+          (e: React.ChangeEvent<HTMLInputElement>) => { changeProductValue(e.target.value); }
+}
+        />
         <button type="submit">Add</button>
       </form>
       <div>
         { Object.values(products).map((product) => (
           <div key={product.id}>
-            <Product product={product.value} />
+            {' '}
+            <Product product={product.value} updateProduct={updateProduct} id={product.id} />
           </div>
         ))}
       </div>
+
     </>
   );
 }

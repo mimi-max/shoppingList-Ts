@@ -10,7 +10,8 @@ interface IProduct{
 //
 interface IUseProducts{
   products:IProduct,
-  addProduct: (productValue: string) => void
+  addProduct: (productValue: string) => void,
+  updateProduct:(id: string, value: string)=>void
 }
 //
 function useProducts() {
@@ -18,16 +19,24 @@ function useProducts() {
   //
   function addProduct(productValue:string) {
     const id = uuidv4();
-    const newProducts = {
-      ...products,
-      [id]: {
-        value: productValue,
-        id,
-      },
-    };
-    setProducts(newProducts);
+    if (productValue) {
+      const newProducts = {
+        ...products,
+        [id]: {
+          value: productValue,
+          id,
+        },
+      };
+      setProducts(newProducts);
+    }
   }
   //
-  return { products, addProduct };
+
+  function updateProduct(id:string, value:string):void {
+    const newProducts = { ...products };
+    newProducts[id].value = value;
+    setProducts(newProducts);
+  }
+  return { products, addProduct, updateProduct };
 }
 export default useProducts;
