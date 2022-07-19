@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import useProductValueUpdate from '../hooks/useProductValueUpadte';
+import useProductQuantityValue from '../hooks/useProductQuantityValue';
 
 interface IProductProps{
   product:string
@@ -8,16 +9,17 @@ interface IProductProps{
   deleteProduct:(id: string) => void
   isCheck: (id: string, isDone: boolean) => void
   isDone:boolean
-  quantity:number
-  increaseQuantity: (id: string, quantity: number) => void
-  decreaseQuantity: (id: string, quantity: number) => void
+  quantity:string
+  updateQuantity: (id: string, quantity: string) => void
+
 }
 function Product({
   product, updateProduct, id, deleteProduct, isCheck, isDone,
-  quantity, increaseQuantity, decreaseQuantity,
+  quantity, updateQuantity,
 }:IProductProps) {
   const [istoggle, setToggle] = useState <boolean>(false);
   const { productValueUpdate, changeProductValueUpdate } = useProductValueUpdate(product);
+  const { productValueQuantity, changeProductValueQuantity } = useProductQuantityValue();
   //
   function toogle() {
     setToggle(!istoggle);
@@ -49,10 +51,10 @@ function Product({
       {!istoggle && (
       <input
         type="number"
-        min={quantity}
-        onChange={() => {
-          increaseQuantity(id, quantity);
-          decreaseQuantity(id, quantity);
+        min={1}
+        value={quantity}
+        onChange={(e:React.ChangeEvent<HTMLInputElement>) => {
+          updateQuantity(id, e.target.value);
         }}
       />
       )}

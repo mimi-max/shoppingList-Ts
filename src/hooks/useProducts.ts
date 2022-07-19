@@ -6,7 +6,7 @@ interface IProduct{
     value:string,
     id:string,
     isDone:boolean,
-    quantity:number
+    quantity:string
   }
 }
 //
@@ -16,8 +16,9 @@ interface IUseProducts{
   updateProduct:(id: string, value: string)=>void
   deleteProduct:(id: string)=> void
   isCheck:(id: string, isDone:boolean)=> void
-  increaseQuantity:(id: string, quantity: number)=> void
-  decreaseQuantity:(id: string, quantity: number)=> void
+  updateQuantity:(id: string, quantity: string)=> void
+  // increaseQuantity:(id: string, quantity: number)=> void
+  // decreaseQuantity:(id: string, quantity: number)=> void
 }
 //
 function useProducts() {
@@ -32,7 +33,7 @@ function useProducts() {
           value: productValue,
           id,
           isDone: false,
-          quantity: 1,
+          quantity: '1',
         },
       };
       setProducts(newProducts);
@@ -57,20 +58,27 @@ function useProducts() {
     setProducts(newProducts);
   }
   //
-  function increaseQuantity(id:string, quantity:number) {
+  // function increaseQuantity(id:string, quantity:number) {
+  //   const newProducts = { ...products };
+  //   newProducts[id].quantity += newProducts[id].quantity + 1;
+  //   setProducts(newProducts);
+  // }
+  // function decreaseQuantity(id:string, quantity:number) {
+  //   const newProducts = { ...products };
+  //   if (newProducts[id].quantity >= 1) {
+  //     newProducts[id].quantity -= newProducts[id].quantity - 1;
+  //     setProducts(newProducts);
+  //   }
+  // }
+
+  function updateQuantity(id:string, quantity:string):void {
     const newProducts = { ...products };
-    newProducts[id].quantity += newProducts[id].quantity + 1;
+
+    newProducts[id].quantity = quantity;
     setProducts(newProducts);
   }
-  function decreaseQuantity(id:string, quantity:number) {
-    const newProducts = { ...products };
-    if (newProducts[id].quantity >= 1) {
-      newProducts[id].quantity -= newProducts[id].quantity - 1;
-      setProducts(newProducts);
-    }
-  }
   return {
-    products, addProduct, updateProduct, deleteProduct, isCheck, increaseQuantity, decreaseQuantity,
+    products, addProduct, updateProduct, deleteProduct, isCheck, updateQuantity,
   };
 }
 export default useProducts;
