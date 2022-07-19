@@ -6,7 +6,7 @@ import Product from './Product';
 function Form() {
   const { productValue, changeProductValue } = useProductValue();
   const {
-    products, addProduct, updateProduct, deleteProduct, isCheck, increaseQuantity, decreaseQuantity,
+    products, addProduct, updateProduct, deleteProduct, isCheck, updateQuantity,
   } = useProducts();
   //
   return (
@@ -42,8 +42,7 @@ function Form() {
               isCheck={isCheck}
               isDone={product.isDone}
               quantity={product.quantity}
-              increaseQuantity={increaseQuantity}
-              decreaseQuantity={decreaseQuantity}
+              updateQuantity={updateQuantity}
             />
           </div>
         ))}
